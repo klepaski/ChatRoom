@@ -1,0 +1,73 @@
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: lightgoldenrodyellow;
+}
+
+#searchresults {
+    margin-top: 20px;
+}
+.show-border-left {
+    width: 350px;
+    border-left: 2px dashed lightseagreen;
+    margin-bottom: 20px;
+    background-color: peachpuff;
+    border-radius: 8px;
+}
+.col-md-3 {
+    width: 60px;
+    margin-left: 20px;
+}
+
+.col-md-7 {
+    width: 410px;
+    margin-left: 20px;
+}
+.form-floating-m {
+    width: 250px;
+    background-color: peachpuff;
+    margin-bottom: 5px;
+    margin-left: 20%;
+    padding: 5px;
+}
+.btn-pink {
+    margin-top: 0;
+    color: black;
+    background-color: darksalmon;
+    border: 2px solid lightseagreen;
+}
+
+    .btn-pink:hover {
+        color: black;
+        background-color: salmon;
+    }
+
+.form-w {
+    width: 230px;
+    margin: 2px;
+}
+
+.form-wt {
+    width: 230px;
+    margin: 2px;
+    height: 90px;
+}

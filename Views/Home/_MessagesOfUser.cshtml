@@ -1,0 +1,31 @@
+﻿@{
+    List<MessageModel> userMessages = ViewBag.UserMessages;
+}
+
+<div id="searchresults">
+    @if (@userMessages.Count > 0)
+    {
+        <h3>Your messages</h3><hr/>
+        @foreach (var message in userMessages)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    <b><i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i></b>
+                </div>
+                <div class="col-md-9 show-border-left">
+                    <b>From: @message.SenderName</b><br />
+                    <details>
+                        <summary>@message.Title</summary>
+                        <p>@message.MessageBody</p>
+                    </details>
+                    <h11>@message.DeliverDate</h11>
+                </div>
+                <hr />
+            </div>
+        }
+    }
+    else
+    {
+        <p>You didn't receive any message yet!</p>
+    }
+</div>

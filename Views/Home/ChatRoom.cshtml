@@ -1,0 +1,66 @@
+﻿@using task6x.Models;
+@using Microsoft.AspNetCore.Mvc.Rendering;
+@{
+    ViewBag.Title = "ChatRoom";
+    List<UserModel> users = ViewBag.Users;
+    string currentUser = ViewBag.CurrentUser;
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.13/signalr.min.js"></script>
+
+
+<div class="row">
+    <div class="col-md-7 text-center">
+        <section>
+            <h3>Send a message, @currentUser!</h3>
+            <hr />
+            <div class="form-floating-m">
+                <input list="recipient" placeholder="To whom" id="recipientName" class="form-w" />
+                <datalist id="recipient" class="form-w">
+                    @foreach (var user in users)
+                    {
+                        <option value=@user.UserName></option>
+                    }
+                </datalist>
+                <input placeholder="Title" id="title" class="form-w" />
+                <textarea placeholder="Message" id="messageBody" class="form-wt"></textarea>
+            </div>
+            <div>
+                <button class="btn btn-pink" id="sendButton">Send</button>
+                <button class="btn btn-pink mx-2" type="button" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div id="chatBox">
+
+</div>
+
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/Messages").build();
+
+    connection.on("ReceiveMessage", function (recipientName) {
+        if ("@currentUser" == recipientName) {
+            $('#chatBox').load('/Home/MessagesOfUser');
+        }
+    });
+
+    $("#sendButton").click(function () {
+        var recipientName = $("#recipientName").val();
+        var title = $("#title").val();
+        var messageBody = $("#messageBody").val();
+        connection.invoke("SendMessage", "@currentUser", recipientName, title, messageBody);
+        $("#recipientName").val("").focus();
+        $("#title").val("");
+        $("#messageBody").val("");
+    });
+
+    connection.start().then(function () {
+        $('#chatBox').load('/Home/MessagesOfUser');
+        console.log("Connected!");
+    }).catch(function (err) {
+        console.error(err.toString());
+    });
+</script>
